@@ -26,6 +26,22 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
+
+    flavorDimensions "flavor-type"
+
+    productFlavors {
+        dev {
+            dimension "flavor-type"
+            applicationId "com.dives.dev"
+            resValue "string", "app_name", "Dives dev"
+        }
+        prod {
+            dimension "flavor-type"
+            applicationId "com.dives.prod"
+            resValue "string", "app_name", "Dives"
+        }
+    }
+
     compileSdkVersion 28
 
     sourceSets {
@@ -47,22 +63,9 @@ android {
 
     buildTypes {
         release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
-        }
-        debug {
-            signingConfig signingConfigs.debug
-        }
-    }
-    flavorDimensions "flavor-type"
-    productFlavors {
-        development {
-            dimension "flavor-type"
-            applicationIdSuffix ".dev"
-        }
-        production {
-            dimension "flavor-type"
-            applicationIdSuffix ".uat"
-            versionNameSuffix "-uat"
         }
     }
 }
@@ -74,3 +77,4 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
+
